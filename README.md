@@ -1,2 +1,20 @@
 # icanspice_remake
+
 Remake of the "I can Spice" e-shop using Next.js, TypeScript, Tailwind, Supabase, React.js and more
+
+## Legal Disclaimer and Copyright Notice
+
+This project is developed under an agreement with **Spice Brothers s.r.o.** ([https://www.icanspice.sk](https://www.icanspice.sk)).
+
+### Intellectual Property and Usage Restrictions
+
+- **Design and Layout:** The original website design and layout are the exclusive property of **BugesWeb**. Consequently, the design, structure, and visual styles associated with the original website are protected and must not be replicated, cloned, or used in any form.
+- **Media Assets:** All images and graphical assets contained within this repository are the exclusive property of **Spice Brothers s.r.o.** and are protected by copyright law. Their use is strictly limited to the scope of this project and may not be extracted or used for other purposes without explicit written authorization from Spice Brothers s.r.o.
+
+### License
+
+All rights reserved. This repository and its contents are the proprietary property of **Bálint Janík**. No part of this project may be reproduced, distributed, or transmitted in any form or by any means without prior written permission from the copyright holder.
+
+---
+
+**Copyright © 2026 Bálint Janík. All rights reserved.**

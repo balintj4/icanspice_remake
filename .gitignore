@@ -1,0 +1,19 @@
+# dependencies
+node_modules
+.pnp
+.pnp.js
+
+# environment variables
+.env*.local
+.env.development
+.env.test
+.env.production
+
+# build outputs
+.next
+out
+build
+
+# misc
+.DS_Store
+*.pem
