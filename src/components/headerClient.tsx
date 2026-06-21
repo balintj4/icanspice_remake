@@ -125,7 +125,7 @@ export function HeaderClient({ categories, user }: HeaderClientProps) {
           <Button variant="default">Košík</Button>
         </div>
       </header>
-      <nav className="sm:hidden fixed bottom-6  left-5/10 -translate-x-5/10 top-auto w-9/10 bg-white border-t p-2 rounded-full flex max-w-xs justify-around">
+      <nav className="sm:hidden fixed bottom-6  left-5/10 -translate-x-5/10 top-auto w-9/10 bg-white border-t p-2 rounded-full flex max-w-xs justify-around z-100">
         <Link
           href="/"
           className={cn(

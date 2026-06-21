@@ -38,9 +38,11 @@ export default function RootLayout({
         raleway.variable,
       )}
     >
-      <body className="min-h-full flex flex-col">
-        <Header />
-        <main>{children}</main>
+      <body className="min-h-full flex justify-center">
+        <div className="w-full max-w-[1920px] shadow-2xl flex flex-col">
+          <Header />
+          <main>{children}</main>
+        </div>
       </body>
     </html>
   );
