@@ -71,7 +71,7 @@
   --chart-2: oklch(54.057% 0.11895 136.133);
   --chart-3: oklch(44.668% 0.09735 150.041);
   --chart-4: oklch(38.198% 0.08047 153.576);
-  --chart-5: oklch(0.448 0.119 151.328);
+  --chart-5: oklch(71.745% 0.12091 146.075);
   --radius: 0.625rem;
   --sidebar: oklch(0.985 0.001 106.423);
   --sidebar-foreground: oklch(0.147 0.004 49.25);
@@ -124,7 +124,8 @@
   body {
     @apply bg-background text-foreground;
   }
-  button:not(:disabled), [role="button"]:not(:disabled) {
+  button:not(:disabled),
+  [role="button"]:not(:disabled) {
     cursor: pointer;
   }
   html {

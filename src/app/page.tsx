@@ -1,4 +1,5 @@
 import { FeatureIcon } from "@/components/FeatureIcon";
+import Cookies from "js-cookie";
 import { Button } from "@/components/ui/button";
 import ToCartButton from "@/components/addToCartButton";
 import { Separator } from "@/components/ui/separator";
@@ -71,7 +72,7 @@ export default async function Page() {
         <FeatureIcon
           icon={TruckIcon}
           label="Rýchla a spoľahlivá doprava"
-          iconBgColor="bg-chart-1"
+          iconBgColor="bg-chart-5"
         />
         <Separator orientation="vertical" className="bg-secondary" />
         <FeatureIcon
@@ -100,8 +101,8 @@ export default async function Page() {
           </div>
         ))}
       </div>
-      <section className="p-4xl">
-        <ToCartButton productId={1} />
+      <section className="p-20">
+        <ToCartButton productId={1} path="/" />
       </section>
     </>
   );

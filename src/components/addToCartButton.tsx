@@ -1,35 +1,36 @@
 import { createClient } from "@/lib/server";
+import { cookies } from "next/headers";
 import { ToCartButtonClient } from "./addToCartButtonClient";
 
 export default async function ToCartButton({
   productId,
+  path,
 }: {
   productId: number;
+  path: string;
 }) {
   const supabase = await createClient();
-  const {
-    data: { user },
-  } = await supabase.auth.getUser();
-  if (!user) throw new Error("Neautorizovaný prístup");
-
-  let { data: cart, error: cartError } = await supabase
-    .from("carts")
-    .select("id")
-    .eq("user_id", user.id)
-    .single();
-
-  if (!cart) {
-    return <ToCartButtonClient count={0} productID={productId} />;
-  }
+  const cookieStore = await cookies();
+  const cartId = cookieStore.get("cart_id")?.value;
 
   const { data: existingItem } = await supabase
     .from("cart_items")
     .select("id, quantity")
-    .eq("cart_id", cart.id)
+    .eq("cart_id", cartId)
     .eq("product_id", productId)
     .single();
 
+  if (!existingItem) {
+    return (
+      <ToCartButtonClient count={0} productID={productId} validatePath={path} />
+    );
+  }
+
   return (
-    <ToCartButtonClient count={existingItem?.quantity} productID={productId} />
+    <ToCartButtonClient
+      count={existingItem?.quantity}
+      productID={productId}
+      validatePath={path}
+    />
   );
 }

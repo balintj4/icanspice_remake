@@ -1,14 +1,15 @@
 "use server";
 import { createClient } from "@/lib/server";
+import { revalidatePath } from "next/cache";
 
 export async function updateCartItem(
   cartId: string,
   productId: number,
   change: number,
+  validatePath: string = "/",
 ) {
   const supabase = await createClient();
 
-  // 1. Kontrola, či produkt v košíku existuje
   const { data: existingItem } = await supabase
     .from("cart_items")
     .select("id, quantity")
@@ -31,4 +32,5 @@ export async function updateCartItem(
       .from("cart_items")
       .insert({ cart_id: cartId, product_id: productId, quantity: change });
   }
+  revalidatePath(validatePath, "layout");
 }
