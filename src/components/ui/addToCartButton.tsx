@@ -1,6 +1,6 @@
 import { createClient } from "@/lib/server";
 import { cookies } from "next/headers";
-import { ToCartButtonClient } from "./addToCartButtonClient";
+import { ToCartButtonClient } from "../clients/addToCartButtonClient";
 
 export default async function ToCartButton({
   productId,

@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono, Raleway } from "next/font/google";
 import "./globals.css";
 import { cn } from "@/lib/utils";
-import Header from "@/components/header";
+import Header from "@/components/ui/header";
 import AuthProvider from "../managers/AuthProvider";
 import CartManager from "@/managers/cartManager";
 

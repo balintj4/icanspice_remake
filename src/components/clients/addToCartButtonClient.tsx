@@ -1,7 +1,7 @@
 "use client";
 import { useOptimistic, useTransition } from "react";
 import Cookies from "js-cookie";
-import { Button } from "./ui/button";
+import { Button } from "../ui/button";
 import { updateCartItem } from "@/app/actions/cartActions";
 
 interface ToCartButtonClientProps {
@@ -36,7 +36,7 @@ export function ToCartButtonClient({
   return (
     <>
       {optimisticCount > 0 ? (
-        <div className="w-40 h-8 flex flex-row justify-between items-center bg-chart-5">
+        <div className="w-40 h-8 flex flex-row justify-between items-center bg-chart-5 mx-auto">
           <Button
             className="text-lg"
             onClick={() => handleAdd(-1)}
@@ -55,7 +55,7 @@ export function ToCartButtonClient({
         </div>
       ) : (
         <Button
-          className="w-40 h-8"
+          className="w-40 h-8 mx-auto"
           onClick={() => handleAdd(1)}
           disabled={isPending}
         >

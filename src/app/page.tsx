@@ -1,7 +1,7 @@
-import { FeatureIcon } from "@/components/FeatureIcon";
+import { FeatureIcon } from "@/components/ui/FeatureIcon";
 import Cookies from "js-cookie";
+import ProductCard from "@/components/ui/productCard";
 import { Button } from "@/components/ui/button";
-import ToCartButton from "@/components/addToCartButton";
 import { Separator } from "@/components/ui/separator";
 import { createClient } from "@/lib/server";
 import {
@@ -93,16 +93,11 @@ export default async function Page() {
           iconBgColor="bg-chart-4"
         />
       </div>
-      <div className="grid grid-cols-3 gap-4">
-        {products?.map((product) => (
-          <div key={product.id} className="border p-4">
-            <h2>{product.name}</h2>
-            <p>{product.price / 100} €</p>
-          </div>
-        ))}
-      </div>
       <section className="p-20">
-        <ToCartButton productId={1} path="/" />
+        <div className="flex flex-row gap-12">
+          <ProductCard path="/" productId={1} />
+          <ProductCard path="/" productId={2} />
+        </div>
       </section>
     </>
   );

@@ -1,5 +1,5 @@
 import { createClient } from "@/lib/server";
-import { HeaderClient } from "./headerClient";
+import { HeaderClient } from "../clients/headerClient";
 
 export default async function Header() {
   const supabase = await createClient();
