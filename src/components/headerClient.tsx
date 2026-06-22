@@ -45,7 +45,7 @@ export function HeaderClient({ categories, user }: HeaderClientProps) {
 
   return (
     <>
-      <header className="hidden sm:flex items-center justify-between p-4 border-b text-secondary-foreground">
+      <header className="sticky hidden sm:flex items-center justify-between p-4 border-b text-secondary-foreground top-0 relative z-100 bg-background">
         <div className="flex items-center gap-6">
           <h1
             className="font-bold text-nowrap text-2xl"
