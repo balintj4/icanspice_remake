@@ -1,8 +1,12 @@
-import { supabase } from "@/lib/supabase";
-import { getSupabaseServer as createClient } from "@/lib/supabase";
+import { createClient } from "@/lib/server";
 import { ToCartButtonClient } from "./addToCartButtonClient";
 
-export default async function ToCartButton(productId: number) {
+export default async function ToCartButton({
+  productId,
+}: {
+  productId: number;
+}) {
+  const supabase = await createClient();
   const {
     data: { user },
   } = await supabase.auth.getUser();
@@ -15,7 +19,7 @@ export default async function ToCartButton(productId: number) {
     .single();
 
   if (!cart) {
-    throw new Error("Nepodarilo sa získať ani vytvoriť košík");
+    return <ToCartButtonClient count={0} productID={productId} />;
   }
 
   const { data: existingItem } = await supabase
@@ -25,5 +29,7 @@ export default async function ToCartButton(productId: number) {
     .eq("product_id", productId)
     .single();
 
-  return <ToCartButtonClient count={existingItem?.quantity} />;
+  return (
+    <ToCartButtonClient count={existingItem?.quantity} productID={productId} />
+  );
 }

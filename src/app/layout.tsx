@@ -3,7 +3,8 @@ import { Geist, Geist_Mono, Raleway } from "next/font/google";
 import "./globals.css";
 import { cn } from "@/lib/utils";
 import Header from "@/components/header";
-import AuthProvider from "./actions/AuthProvider";
+import AuthProvider from "../managers/AuthProvider";
+import CartManager from "@/managers/cartManager";
 
 const raleway = Raleway({ subsets: ["latin"], variable: "--font-sans" });
 
@@ -40,11 +41,11 @@ export default function RootLayout({
       )}
     >
       <body className="min-h-full flex justify-center">
-        
         <div className="w-full max-w-[1920px] shadow-2xl flex flex-col">
           <AuthProvider>
-          <Header />
-          <main>{children}</main>
+            <CartManager />
+            <Header />
+            <main>{children}</main>
           </AuthProvider>
         </div>
       </body>

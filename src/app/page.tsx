@@ -1,7 +1,8 @@
 import { FeatureIcon } from "@/components/FeatureIcon";
 import { Button } from "@/components/ui/button";
+import ToCartButton from "@/components/addToCartButton";
 import { Separator } from "@/components/ui/separator";
-import { supabase } from "@/lib/supabase";
+import { createClient } from "@/lib/server";
 import {
   WheatIcon,
   SaladIcon,
@@ -12,6 +13,7 @@ import {
 } from "lucide-react";
 
 export default async function Page() {
+  const supabase = await createClient();
   const { data: products } = await supabase.from("product").select("*");
 
   return (
@@ -98,6 +100,9 @@ export default async function Page() {
           </div>
         ))}
       </div>
+      <section className="p-4xl">
+        <ToCartButton productId={1} />
+      </section>
     </>
   );
 }
