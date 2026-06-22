@@ -4,7 +4,11 @@ import { Separator } from "@/components/ui/separator";
 import { supabase } from "@/lib/supabase";
 import {
   WheatIcon,
-  SaladIcon, TruckIcon, RotateCwIcon, ShieldCheckIcon, PackageOpenIcon
+  SaladIcon,
+  TruckIcon,
+  RotateCwIcon,
+  ShieldCheckIcon,
+  PackageOpenIcon,
 } from "lucide-react";
 
 export default async function Page() {
@@ -12,13 +16,12 @@ export default async function Page() {
 
   return (
     <>
-
-    {/***************************************************************
+      {/***************************************************************
     
                             HERO SECTION
     
     *****************************************************************/}
-    
+
       <section className="relative w-full overflow-hidden z-1">
         <div
           className="min-h-[80dvh] bg-no-repeat bg-centre bg-cover px-6 py-20 bg-bottom-right sm:bg-bottom sm:py-[12dvh] sm:px-[10vw] xl:px-[6vw]"
@@ -45,26 +48,48 @@ export default async function Page() {
             O nás
           </Button>
           <div className="flex mt-8 gap-8">
-          <span className="flex items-center gap-2 text-background text-nowrap"><WheatIcon className="w-5 h-5"/>Bez pridaných aditív</span>
-          <span className="flex items-center gap-2 text-background text-nowrap"><SaladIcon className="w-5 h-5"/>Starostlivo vyberané suroviny</span>
+            <span className="flex items-center gap-2 text-background text-nowrap">
+              <WheatIcon className="w-5 h-5" />
+              Bez pridaných aditív
+            </span>
+            <span className="flex items-center gap-2 text-background text-nowrap">
+              <SaladIcon className="w-5 h-5" />
+              Starostlivo vyberané suroviny
+            </span>
           </div>
         </div>
       </section>
 
-    {/* **************************************************************
+      {/* **************************************************************
     
                             FEATURES SECTION
     
     **************************************************************** */}
-    <div className="relative shadow-2xl z-20 flex flex-row justify-around bg-background w-[90vw] max-w-[1200px] mx-auto min-h-[16dvh] -mt-[3dvh] rounded-md px-10 py-8">
-          <FeatureIcon icon={TruckIcon} label="Rýchla a spoľahlivá doprava" iconBgColor="bg-chart-1" />
-          <Separator orientation="vertical" className="bg-secondary"/>
-          <FeatureIcon icon={RotateCwIcon} label="Vrátenie v prípade nespokojnosti" iconBgColor="bg-chart-2"/>
-          <Separator orientation="vertical" className="bg-secondary"/>
-          <FeatureIcon icon={ShieldCheckIcon} label="Bezpečná platba vďaka službe Stripe" iconBgColor="bg-chart-3" />
-          <Separator orientation="vertical" className="bg-secondary"/>
-          <FeatureIcon icon={PackageOpenIcon} label="Kvalitné balenie a trvanlivosť" iconBgColor="bg-chart-4"/>
-    </div>
+      <div className="relative shadow-2xl z-20 flex flex-row justify-around bg-background w-[90vw] max-w-[1200px] mx-auto min-h-[16dvh] -mt-[3dvh] xl:-mt-[10dvh] rounded-md px-10 py-8">
+        <FeatureIcon
+          icon={TruckIcon}
+          label="Rýchla a spoľahlivá doprava"
+          iconBgColor="bg-chart-1"
+        />
+        <Separator orientation="vertical" className="bg-secondary" />
+        <FeatureIcon
+          icon={RotateCwIcon}
+          label="Vrátenie v prípade nespokojnosti"
+          iconBgColor="bg-chart-2"
+        />
+        <Separator orientation="vertical" className="bg-secondary" />
+        <FeatureIcon
+          icon={ShieldCheckIcon}
+          label="Bezpečná platba vďaka službe Stripe"
+          iconBgColor="bg-chart-3"
+        />
+        <Separator orientation="vertical" className="bg-secondary" />
+        <FeatureIcon
+          icon={PackageOpenIcon}
+          label="Kvalitné balenie a trvanlivosť"
+          iconBgColor="bg-chart-4"
+        />
+      </div>
       <div className="grid grid-cols-3 gap-4">
         {products?.map((product) => (
           <div key={product.id} className="border p-4">
