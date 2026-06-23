@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono, Raleway } from "next/font/google";
+import { Geist, Geist_Mono, Raleway, Inter } from "next/font/google";
 import "./globals.css";
 import { cn } from "@/lib/utils";
 import Header from "@/components/ui/header";
@@ -10,6 +10,11 @@ const raleway = Raleway({ subsets: ["latin"], variable: "--font-sans" });
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
+  subsets: ["latin"],
+});
+
+const interMono = Inter({
+  variable: "--font-inter",
   subsets: ["latin"],
 });
 
@@ -38,6 +43,7 @@ export default function RootLayout({
         geistMono.variable,
         "font-sans",
         raleway.variable,
+        interMono.variable,
       )}
     >
       <body className="min-h-full flex justify-center">

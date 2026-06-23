@@ -27,6 +27,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { usePathname } from "next/navigation";
 import { cn } from "@/lib/utils";
+import { Card, CardFooter, CardTitle, CardDescription } from "../ui/card";
 
 interface Category {
   id: number;
@@ -36,6 +37,7 @@ interface Category {
 
 interface HeaderClientProps {
   categories: Category[];
+  cartTotal: number;
   user?: { name: string } | null;
   cartItemsCount: number;
   children: React.ReactNode;
@@ -46,6 +48,7 @@ export function HeaderClient({
   user,
   cartItemsCount,
   children,
+  cartTotal,
 }: HeaderClientProps) {
   const pathname = usePathname();
   const isActive = (path: string) => pathname === path;
@@ -139,7 +142,26 @@ export function HeaderClient({
               <HoverCardTrigger>
                 <Button variant="default">Košík</Button>
               </HoverCardTrigger>
-              <HoverCardContent>{children}</HoverCardContent>
+              <HoverCardContent
+                className="min-w-80"
+                collisionPadding={20}
+                sideOffset={10}
+              >
+                <Card className="w-full">
+                  <div className="flex flex-col gap-2 py-2 mx-auto max-h-70 overflow-y-auto flex-shrink-0">
+                    {children}
+                  </div>
+                  <CardFooter className="flex flex-col gap-2 p-2">
+                    <div className="w-65 flex flex-row items-center gap-4">
+                      <CardTitle className="ml-2">Spolu v košíku:</CardTitle>
+                      <CardDescription className="font-mono mr-2">
+                        {cartTotal / 100} €
+                      </CardDescription>
+                    </div>
+                    <Button className="mx-auto w-65">Prejsť do košíka</Button>
+                  </CardFooter>
+                </Card>
+              </HoverCardContent>
             </HoverCard>
           ) : (
             <Button variant="default">Košík</Button>

@@ -7,8 +7,8 @@ const variantsDefault = {
     container: "w-40 h-8 mx-auto",
     buttonVariant: "default",
   } as const,
-  test: {
-    container: "w-40 h-8 mx-auto bg-chart-3",
+  ghost: {
+    container: "invisible",
     buttonVariant: "default",
   } as const,
 };
@@ -16,7 +16,7 @@ const variantsDefault = {
 const variantsActive = {
   default: {
     removeButton: "text-lg",
-    text: "text-secondary text-lg",
+    text: "text-secondary text-lg font-mono",
     addButton: "text-xl",
     container:
       "w-40 h-8 flex flex-row justify-between items-center bg-chart-5 mx-auto",
@@ -24,7 +24,7 @@ const variantsActive = {
   } as const,
   cartDropdown: {
     removeButton: "text-lg rounded-full",
-    text: "text-lg",
+    text: "text-md font-mono",
     addButton: "text-xl rounded-full",
     container:
       "w-18 h-8 flex flex-row justify-between items-center pb-2 text-muted-foreground",

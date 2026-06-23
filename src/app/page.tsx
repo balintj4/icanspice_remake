@@ -97,7 +97,8 @@ export default async function Page() {
         <div className="flex flex-row gap-12">
           <ProductCard path="/" productId={1} />
           <ProductCard path="/" productId={2} />
-          <ProductCard path="/" productId={2} variant="cartDropdown" />
+          <ProductCard path="/" productId={3} />
+          <ProductCard path="/" productId={4} />
         </div>
       </section>
     </>

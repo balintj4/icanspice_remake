@@ -10,23 +10,23 @@ import {
 
 const cardVariants = {
   default: {
-    card: "relative w-full w-50 shadow-xl",
+    card: "relative w-full w-50 shadow-xl flex-shrink-0",
     img: "relative z-20 w-full object-cover h-50 w-50",
     textArea: "pb-2",
     heading: "ml-2 text-[1rem] max-w-40 truncate",
-    price: "ml-2 text-[0.9rem]",
+    price: "ml-2 text-[0.8rem] font-mono",
     content: "mx-auto",
     buttonDefault: "default",
     buttonActive: "default",
   } as const,
   cartDropdown: {
-    card: "relative w-full h-20 w-70 flex-row shadow-md",
+    card: "relative w-full h-20 w-70 flex-row shadow-md mx-auto flex-shrink-0",
     img: "relative z-20 object-cover h-20 w-20",
     textArea: "pb-2",
     heading: "mt-1 ml-2 text-sm max-w-40 truncate",
-    price: "ml-2 text-xs",
+    price: "ml-2 text-xs font-mono",
     content: "",
-    buttonDefault: "default",
+    buttonDefault: "ghost",
     buttonActive: "cartDropdown",
   } as const,
 };
