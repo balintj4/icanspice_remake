@@ -12,6 +12,12 @@
 
 import Link from "next/link";
 import {
+  HoverCard,
+  HoverCardContent,
+  HoverCardTrigger,
+} from "@/components/ui/hover-card";
+import React from "react";
+import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
@@ -21,12 +27,6 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { usePathname } from "next/navigation";
 import { cn } from "@/lib/utils";
-import {
-  HomeIcon,
-  ShoppingBagIcon,
-  ShoppingCartIcon,
-  UserIcon,
-} from "lucide-react";
 
 interface Category {
   id: number;
@@ -37,9 +37,16 @@ interface Category {
 interface HeaderClientProps {
   categories: Category[];
   user?: { name: string } | null;
+  cartItemsCount: number;
+  children: React.ReactNode;
 }
 
-export function HeaderClient({ categories, user }: HeaderClientProps) {
+export function HeaderClient({
+  categories,
+  user,
+  cartItemsCount,
+  children,
+}: HeaderClientProps) {
   const pathname = usePathname();
   const isActive = (path: string) => pathname === path;
 
@@ -127,63 +134,18 @@ export function HeaderClient({ categories, user }: HeaderClientProps) {
             </Button>
           )}
 
-          <Button variant="default">Košík</Button>
+          {cartItemsCount ? (
+            <HoverCard openDelay={0} closeDelay={100}>
+              <HoverCardTrigger>
+                <Button variant="default">Košík</Button>
+              </HoverCardTrigger>
+              <HoverCardContent>{children}</HoverCardContent>
+            </HoverCard>
+          ) : (
+            <Button variant="default">Košík</Button>
+          )}
         </div>
       </header>
-      <nav className="sm:hidden fixed bottom-6  left-5/10 -translate-x-5/10 top-auto w-9/10 bg-white border-t p-2 rounded-full flex max-w-xs justify-around z-100">
-        <Link
-          href="/"
-          className={cn(
-            "flex flex-col items-center text-xs transition-colors",
-            isActive("/") ? "text-primary" : "text-secondary-foreground",
-          )}
-        >
-          <HomeIcon className="w-4" /> <span>Domov</span>
-        </Link>
-        <DropdownMenu>
-          <DropdownMenuTrigger asChild>
-            <Button
-              variant="ghost"
-              className={cn(
-                "flex flex-col items-center justify-center gap-1 text-xs transition-colors h-auto py-0",
-                isActive("/obchod") || pathname.startsWith("/obchod")
-                  ? "text-primary"
-                  : "text-secondary-foreground",
-              )}
-            >
-              <ShoppingBagIcon className="w-4" /> <span>Obchod</span>
-            </Button>
-          </DropdownMenuTrigger>
-          <DropdownMenuContent>
-            {categories.map((cat) => (
-              <DropdownMenuItem key={cat.name} asChild>
-                <Link href={`/obchod/${cat.name}`}>{cat.name}</Link>
-              </DropdownMenuItem>
-            ))}
-          </DropdownMenuContent>
-        </DropdownMenu>
-        <Link
-          href="/kosik"
-          className={cn(
-            "flex flex-col items-center text-xs transition-colors",
-            isActive("/kosik") ? "text-primary" : "text-secondary-foreground",
-          )}
-        >
-          <ShoppingCartIcon className="w-4" /> <span>Košík</span>
-        </Link>
-        <Link
-          href="/konto"
-          className={cn(
-            "flex flex-col items-center text-xs transition-colors",
-            isActive("/konto") || pathname.startsWith("/konto")
-              ? "text-primary"
-              : "text-secondary-foreground",
-          )}
-        >
-          <UserIcon className="w-4" />
-          <span>Konto</span>
-        </Link>
-      </nav>
     </>
   );
 }

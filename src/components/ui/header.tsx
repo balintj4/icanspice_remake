@@ -1,9 +1,39 @@
 import { createClient } from "@/lib/server";
+import { cookies } from "next/headers";
+import { headers } from "next/headers";
 import { HeaderClient } from "../clients/headerClient";
+import { getCartItems } from "@/managers/getCartItems";
+import ProductCard from "./productCard";
 
 export default async function Header() {
   const supabase = await createClient();
+  const cookieStore = await cookies();
+
+  const headersList = await headers();
+  const host = headersList.get("localhost");
+  const referer = headersList.get("referer");
+
+  const currentPath = referer ? new URL(referer).pathname : "/";
+  console.log(currentPath);
+
   const { data: categories } = await supabase.from("categories").select("*");
 
-  return <HeaderClient categories={categories || []} />;
+  const cartId = cookieStore.get("cart_id")?.value;
+  const cartItems = await getCartItems();
+
+  return (
+    <HeaderClient
+      categories={categories || []}
+      cartItemsCount={cartItems.length}
+    >
+      {cartItems.map((item) => (
+        <ProductCard
+          key={item.id}
+          path={currentPath}
+          productId={item.product_id}
+          variant="cartDropdown"
+        />
+      ))}
+    </HeaderClient>
+  );
 }
