@@ -1,5 +1,5 @@
 import { createClient } from "@/lib/server";
-import ToCartButton from "@/components/ui/addToCartButton";
+import ToCartButton from "@/components/ui/toCartButton";
 import {
   Card,
   CardDescription,
@@ -8,14 +8,30 @@ import {
   CardTitle,
 } from "./card";
 
+const cardVariants = {
+  default: {
+    card: "relative w-full w-50 shadow-xl",
+    img: "relative z-20 w-full object-cover h-50 w-50",
+    textArea: "pb-2",
+    heading: "ml-6 text-[1rem]",
+    price: "ml-6 text-[0.9rem]",
+    buttonDefault: "default",
+    buttonActive: "default",
+  } as const,
+};
+
 export default async function ProductCard({
   path,
   productId,
+  variant = "default",
 }: {
   path: string;
   productId: number;
+  variant?: keyof typeof cardVariants;
 }) {
   const supabase = await createClient();
+  const style = cardVariants[variant];
+
   const { data: productDisplay } = await supabase
     .from("products")
     .select("id, price, name")
@@ -33,21 +49,24 @@ export default async function ProductCard({
     .single();
 
   return (
-    <Card className="relative w-full w-50 shadow-xl">
+    <Card className={style.card}>
       <img
         src={productThumbnail?.url}
         alt="Event cover"
-        className="relative z-20 w-full object-cover h-50 w-50"
+        className={style.img}
       />
-      <div className="pb-2">
-        <CardTitle className="ml-6 text-[1rem]">
-          {productDisplay.name}
-        </CardTitle>
-        <CardDescription className="ml-6 text-[0.9rem]">
+      <div className={style.textArea}>
+        <CardTitle className={style.heading}>{productDisplay.name}</CardTitle>
+        <CardDescription className={style.price}>
           {productDisplay.price / 100} €
         </CardDescription>
       </div>
-      <ToCartButton productId={productId} path={path} />
+      <ToCartButton
+        productId={productId}
+        path={path}
+        variantDefault={style.buttonDefault}
+        variantActive={style.buttonActive}
+      />
     </Card>
   );
 }

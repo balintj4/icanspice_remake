@@ -8,12 +8,21 @@ interface ToCartButtonClientProps {
   count?: number;
   productID: number;
   validatePath: string;
+  variantDefault: { container: string };
+  variantActive: {
+    container: string;
+    addButton: string;
+    removeButton: string;
+    text: string;
+  };
 }
 
 export function ToCartButtonClient({
   count = 0,
   productID,
   validatePath,
+  variantDefault,
+  variantActive,
 }: ToCartButtonClientProps) {
   const [isPending, startTransition] = useTransition();
 
@@ -36,17 +45,17 @@ export function ToCartButtonClient({
   return (
     <>
       {optimisticCount > 0 ? (
-        <div className="w-40 h-8 flex flex-row justify-between items-center bg-chart-5 mx-auto">
+        <div className={variantActive.container}>
           <Button
-            className="text-lg"
+            className={variantActive.removeButton}
             onClick={() => handleAdd(-1)}
             disabled={isPending}
           >
             -
           </Button>
-          <p className="text-secondary text-lg">{optimisticCount}</p>
+          <p className={variantActive.text}>{optimisticCount}</p>
           <Button
-            className="text-xl"
+            className={variantActive.addButton}
             onClick={() => handleAdd(1)}
             disabled={isPending}
           >
@@ -55,7 +64,7 @@ export function ToCartButtonClient({
         </div>
       ) : (
         <Button
-          className="w-40 h-8 mx-auto"
+          className={variantDefault.container}
           onClick={() => handleAdd(1)}
           disabled={isPending}
         >
