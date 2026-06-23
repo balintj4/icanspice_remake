@@ -13,10 +13,21 @@ const cardVariants = {
     card: "relative w-full w-50 shadow-xl",
     img: "relative z-20 w-full object-cover h-50 w-50",
     textArea: "pb-2",
-    heading: "ml-6 text-[1rem]",
-    price: "ml-6 text-[0.9rem]",
+    heading: "ml-2 text-[1rem] max-w-40 truncate",
+    price: "ml-2 text-[0.9rem]",
+    content: "mx-auto",
     buttonDefault: "default",
     buttonActive: "default",
+  } as const,
+  cartDropdown: {
+    card: "relative w-full h-20 w-70 flex-row shadow-md",
+    img: "relative z-20 object-cover h-20 w-20",
+    textArea: "pb-2",
+    heading: "mt-1 ml-2 text-sm max-w-40 truncate",
+    price: "ml-2 text-xs",
+    content: "",
+    buttonDefault: "default",
+    buttonActive: "cartDropdown",
   } as const,
 };
 
@@ -55,18 +66,20 @@ export default async function ProductCard({
         alt="Event cover"
         className={style.img}
       />
-      <div className={style.textArea}>
-        <CardTitle className={style.heading}>{productDisplay.name}</CardTitle>
-        <CardDescription className={style.price}>
-          {productDisplay.price / 100} €
-        </CardDescription>
+      <div className={style.content}>
+        <div className={style.textArea}>
+          <CardTitle className={style.heading}>{productDisplay.name}</CardTitle>
+          <CardDescription className={style.price}>
+            {productDisplay.price / 100} €
+          </CardDescription>
+        </div>
+        <ToCartButton
+          productId={productId}
+          path={path}
+          variantDefault={style.buttonDefault}
+          variantActive={style.buttonActive}
+        />
       </div>
-      <ToCartButton
-        productId={productId}
-        path={path}
-        variantDefault={style.buttonDefault}
-        variantActive={style.buttonActive}
-      />
     </Card>
   );
 }

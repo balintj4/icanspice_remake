@@ -5,10 +5,12 @@ import { ToCartButtonClient } from "../clients/toCartButtonClient";
 const variantsDefault = {
   default: {
     container: "w-40 h-8 mx-auto",
-  },
+    buttonVariant: "default",
+  } as const,
   test: {
     container: "w-40 h-8 mx-auto bg-chart-3",
-  },
+    buttonVariant: "default",
+  } as const,
 };
 
 const variantsActive = {
@@ -18,7 +20,16 @@ const variantsActive = {
     addButton: "text-xl",
     container:
       "w-40 h-8 flex flex-row justify-between items-center bg-chart-5 mx-auto",
-  },
+    buttonVariant: "default",
+  } as const,
+  cartDropdown: {
+    removeButton: "text-lg rounded-full",
+    text: "text-lg",
+    addButton: "text-xl rounded-full",
+    container:
+      "w-18 h-8 flex flex-row justify-between items-center pb-2 text-muted-foreground",
+    buttonVariant: "ghost",
+  } as const,
 };
 
 export default async function ToCartButton({

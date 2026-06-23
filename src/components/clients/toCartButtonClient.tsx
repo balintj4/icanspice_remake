@@ -8,12 +8,28 @@ interface ToCartButtonClientProps {
   count?: number;
   productID: number;
   validatePath: string;
-  variantDefault: { container: string };
+  variantDefault: {
+    container: string;
+    buttonVariant?:
+      | "default"
+      | "outline"
+      | "ghost"
+      | "secondary"
+      | "destructive"
+      | "link";
+  };
   variantActive: {
     container: string;
     addButton: string;
     removeButton: string;
     text: string;
+    buttonVariant?:
+      | "default"
+      | "outline"
+      | "ghost"
+      | "secondary"
+      | "destructive"
+      | "link";
   };
 }
 
@@ -50,6 +66,7 @@ export function ToCartButtonClient({
             className={variantActive.removeButton}
             onClick={() => handleAdd(-1)}
             disabled={isPending}
+            variant={variantActive.buttonVariant}
           >
             -
           </Button>
@@ -58,6 +75,7 @@ export function ToCartButtonClient({
             className={variantActive.addButton}
             onClick={() => handleAdd(1)}
             disabled={isPending}
+            variant={variantActive.buttonVariant}
           >
             +
           </Button>
@@ -65,6 +83,7 @@ export function ToCartButtonClient({
       ) : (
         <Button
           className={variantDefault.container}
+          variant={variantDefault.buttonVariant}
           onClick={() => handleAdd(1)}
           disabled={isPending}
         >
