@@ -15,7 +15,6 @@ export default async function Header() {
   const referer = headersList.get("referer");
 
   const currentPath = referer ? new URL(referer).pathname : "/";
-  console.log(currentPath);
 
   const { data: categories } = await supabase.from("categories").select("*");
 

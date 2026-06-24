@@ -12,6 +12,7 @@ import {
   ShieldCheckIcon,
   PackageOpenIcon,
 } from "lucide-react";
+import CategoryHeader from "@/components/ui/categoryHeader";
 
 export default async function Page() {
   const supabase = await createClient();
@@ -24,7 +25,7 @@ export default async function Page() {
                             HERO SECTION
     
     *****************************************************************/}
-
+      <CategoryHeader />
       <section className="relative w-full overflow-hidden z-1">
         <div
           className="min-h-[80dvh] bg-no-repeat bg-centre bg-cover px-6 py-20 bg-bottom-right sm:bg-bottom sm:py-[12dvh] sm:px-[10vw] xl:px-[6vw]"

@@ -55,7 +55,7 @@ export function HeaderClient({
 
   return (
     <>
-      <header className="sticky hidden sm:flex items-center justify-between p-4 border-b text-secondary-foreground top-0 relative z-50 bg-background">
+      <header className="sticky hidden sm:flex items-center justify-between p-4 border-b text-secondary-foreground top-0 relative z-50 bg-background shadow-xs">
         <div className="flex items-center gap-6">
           <h1
             className="font-bold text-nowrap text-2xl"
