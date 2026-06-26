@@ -29,6 +29,16 @@ const cardVariants = {
     buttonDefault: "ghost",
     buttonActive: "cartDropdown",
   } as const,
+  cartShowcase: {
+    card: "relative w-full h-25 w-90% flex-row shadow-md mx-auto flex-shrink-0",
+    img: "relative z-20 object-cover h-25 w-25",
+    textArea: "pb-4",
+    heading: "mt-1 ml-2 text-sm max-w-80 truncate",
+    price: "ml-2 text-xs font-mono",
+    content: "",
+    buttonDefault: "ghost",
+    buttonActive: "cartDropdown",
+  } as const,
 };
 
 export default async function ProductCard({
