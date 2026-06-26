@@ -93,15 +93,7 @@ export default async function Page() {
           label="Kvalitné balenie a trvanlivosť"
           iconBgColor="bg-chart-4"
         />
-      </div>
-      <section className="p-20">
-        <div className="flex flex-row gap-12">
-          <ProductCard path="/" productId={1} />
-          <ProductCard path="/" productId={2} />
-          <ProductCard path="/" productId={3} />
-          <ProductCard path="/" productId={4} />
-        </div>
-      </section>
+      </div>ç
     </>
   );
 }
