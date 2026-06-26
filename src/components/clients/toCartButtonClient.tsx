@@ -1,8 +1,8 @@
 "use client";
 import { useOptimistic, useTransition } from "react";
-import Cookies from "js-cookie";
 import { Button } from "../ui/button";
 import { updateCartItem } from "@/app/actions/cartActions";
+import { useCart } from "@/context/cartContext";
 
 interface ToCartButtonClientProps {
   count?: number;
@@ -46,9 +46,10 @@ export function ToCartButtonClient({
     count,
     (state, amount: number) => state + amount,
   );
+  const { cartId } = useCart();
 
   const handleAdd = async (amount: number) => {
-    const cartId = Cookies.get("cart_id");
+    
     if (!cartId) return;
 
     startTransition(() => {

@@ -7,6 +7,7 @@ import { createClient } from "@/lib/server";
 import { cookies, headers } from "next/headers";
 import { getCartItems } from "@/managers/getCartItems";
 import { getOrCreateCart } from "@/lib/cart";
+import { CartProvider } from "@/context/cartContext";
 
 const raleway = Raleway({ subsets: ["latin"], variable: "--font-sans" });
 
@@ -44,18 +45,14 @@ export default async function RootLayout({
 
     getCartItems(),
   ]);
-  console.log("fetched categories and cart items");
 
-  const cartId = cookieStore.get("cart_id")?.value;
+  const cartId = cookieStore.get("cart_id")?.value ?? "";
   if (cartId) {
     await getOrCreateCart(cartId);
-  } else {
-    return;
-  }
+  } 
   const currentPath = headersList.get("referer")
     ? new URL(headersList.get("referer")!).pathname
     : "/";
-  console.log("fetched path");
 
   return (
     <html
@@ -71,6 +68,7 @@ export default async function RootLayout({
       )}
     >
       <body className="min-h-full flex justify-center">
+        <CartProvider cartId={cartId}>
         <div className="w-full max-w-[1920px]  flex shadow-2xl flex-col">
           <Header
             categories={categoriesRes.data || []}
@@ -80,6 +78,7 @@ export default async function RootLayout({
           />
           <main>{children}</main>
         </div>
+        </CartProvider>
       </body>
     </html>
   );
