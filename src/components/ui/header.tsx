@@ -1,26 +1,31 @@
-import { createClient } from "@/lib/server";
-import { cookies } from "next/headers";
-import { headers } from "next/headers";
 import { HeaderClient } from "../clients/headerClient";
-import { getCartItems } from "@/managers/getCartItems";
 import ProductCard from "./productCard";
 import { getCartTotalValue } from "@/managers/getCartTotal";
 
-export default async function Header() {
-  const supabase = await createClient();
-  const cookieStore = await cookies();
+interface Category {
+  id: number;
+  name: string;
+  hidden: boolean;
+}
 
-  const headersList = await headers();
-  const host = headersList.get("host");
-  const referer = headersList.get("referer");
+interface CartItem {
+  id: string;
+  product_id: number;
+}
 
-  const currentPath = referer ? new URL(referer).pathname : "/";
+interface HeaderProps {
+  categories: Category[];
+  cartItems: CartItem[];
+  currentPath: string;
+  cartId: string;
+}
 
-  const { data: categories } = await supabase.from("categories").select("*");
-
-  const cartId = cookieStore.get("cart_id")?.value;
-  const cartItems = await getCartItems();
-
+export default async function Header({
+  categories,
+  cartItems,
+  currentPath,
+  cartId,
+}: HeaderProps) {
   const total = cartId ? await getCartTotalValue(cartId) : 0;
 
   return (

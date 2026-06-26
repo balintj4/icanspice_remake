@@ -19,6 +19,11 @@ export async function updateCartItem(
 
   if (existingItem) {
     const newQuantity = existingItem.quantity + change;
+    await supabase
+      .from("carts")
+      .update({ updated_at: "now()" })
+      .eq("id", cartId);
+
     if (newQuantity <= 0) {
       await supabase.from("cart_items").delete().eq("id", existingItem.id);
     } else {

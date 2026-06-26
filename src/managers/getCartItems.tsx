@@ -10,7 +10,7 @@ export async function getCartItems() {
 
   const { data } = await supabase
     .from("cart_items")
-    .select("*")
+    .select("id, product_id")
     .eq("cart_id", cartId);
 
   return data || [];
