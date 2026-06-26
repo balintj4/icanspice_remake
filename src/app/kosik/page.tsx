@@ -1,23 +1,19 @@
 import { ChevronRightIcon } from "lucide-react";
 import { Separator } from "@/components/ui/separator";
+import { createClient } from "@/lib/server";
+import { cookies } from "next/headers";
 import { getCartItems } from "@/managers/getCartItems";
 import ProductCard from "@/components/ui/productCard";
 import { getCartTotalValue } from "@/managers/getCartTotal";
 import { Button } from "@/components/ui/button";
-import { getCachedProduct } from "@/lib/cache";
 
-export default async function CartPage({params}: { params: Promise<{ slug: string }> }) {
-const { slug } = await params;
-const cookieData = await cookieStore.get("cart_id");
-const cartId = cookieData?.value ?? "";
+export default async function CartPage() {
+  const supabase = await createClient();
+  const cookieStore = await cookies();
+  const cartId = cookieStore.get("cart_id")?.value;
+  const cartItems = await getCartItems();
 
-  const [product, cartItems, cartTotal] = await Promise.all([
-    getCachedProduct(slug), 
-    getCartItems(),
-    getCartTotalValue(cartId)
-  ]);
-
-  
+  const cartTotal = cartId ? await getCartTotalValue(cartId) : 0;
 
   return (
     <>

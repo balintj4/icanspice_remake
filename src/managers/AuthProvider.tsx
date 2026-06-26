@@ -1,6 +1,6 @@
 'use client'
 import { useEffect } from 'react'
-import { createClient } from '@/lib/client'
+import { createClient } from '@/lib/supabaseClient'
 
 export default function AuthProvider({ children }: { children: React.ReactNode }) {
   useEffect(() => {
