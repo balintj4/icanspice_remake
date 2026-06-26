@@ -37,7 +37,7 @@ export default async function CategoryPage({
       </div> :
          <h1 className="">Obchod</h1>
       }
-      <Separator orientation="horizontal" className="bg-secondary mb-2 max-w-[1350px] mx-auto min-h-[2px]" />
+      <Separator orientation="horizontal" className="bg-secondary mb-2 max-w-[1350px] xl:max-w-[1500px] mx-auto min-h-[2px]" />
       <div className="p-12 grid grid-cols-[repeat(auto-fill,minmax(200px,1fr))] gap-8">
         {products.map((product: Product) => (
           <ProductCard

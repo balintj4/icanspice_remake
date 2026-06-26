@@ -11,7 +11,7 @@ export default async function Header() {
   const cookieStore = await cookies();
 
   const headersList = await headers();
-  const host = headersList.get("localhost");
+  const host = headersList.get("host");
   const referer = headersList.get("referer");
 
   const currentPath = referer ? new URL(referer).pathname : "/";
