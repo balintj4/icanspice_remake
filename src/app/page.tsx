@@ -25,7 +25,6 @@ export default async function Page() {
                             HERO SECTION
     
     *****************************************************************/}
-      <CategoryHeader />
       <section className="relative w-full overflow-hidden z-1">
         <div
           className="min-h-[80dvh] bg-no-repeat bg-centre bg-cover px-6 py-20 bg-bottom-right sm:bg-bottom sm:py-[12dvh] sm:px-[10vw] xl:px-[6vw]"
@@ -63,7 +62,6 @@ export default async function Page() {
           </div>
         </div>
       </section>
-
       {/* **************************************************************
     
                             FEATURES SECTION
@@ -93,7 +91,8 @@ export default async function Page() {
           label="Kvalitné balenie a trvanlivosť"
           iconBgColor="bg-chart-4"
         />
-      </div>ç
+      </div>
+      ç
     </>
   );
 }

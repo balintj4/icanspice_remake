@@ -6,6 +6,7 @@ import { getCartItems } from "@/managers/getCartItems";
 import ProductCard from "@/components/ui/productCard";
 import { getCartTotalValue } from "@/managers/getCartTotal";
 import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
 
 export default async function CartPage() {
   const supabase = await createClient();
@@ -24,16 +25,32 @@ export default async function CartPage() {
         <ChevronRightIcon className="h-10" />
         <h1 className="font">Objednávka</h1>
       </div>
-      <Separator
-        orientation="horizontal"
-        className="bg-secondary mb-12 w-[85vw] max-w-[1350px] xl:max-w-[1500px] mx-auto min-h-[2px]"
-      />
+
       <div className="flex flex-row">
-        <div className="flex flex-col basis-2/3"></div>
-        <Separator orientation="vertical" className="bg-foreground" />
-        <div className="flex flex-col basis-1/3 px-8 gap-4 sticky top-24">
+        {/***************************************************************
+    
+                            FORMS
+    
+    *****************************************************************/}
+
+        <div className="flex flex-col basis-2/3 pl-20 mx-8 px-8 py-2">
+          <p className="">Pre pohodlné objednávanie sa </p>
+          <Separator
+            orientation="horizontal"
+            className="bg-secondary mb-12 w-full mx-auto min-h-[2px]"
+          />
+          <Input className="w-200" />
+        </div>
+
+        {/***************************************************************
+    
+                            SUMARRY
+    
+    *****************************************************************/}
+
+        <div className="outline outline-2 outline-foreground mx-8 p-6 px-10 flex flex-col basis-1/3 gap-4 sticky top-24">
           <h2 className="font-bold text-lg bm-2">Produkty v košíku</h2>
-          <div className="flex flex-col max-h-80 overflow-y-auto flex-shrink-0 gap-4">
+          <div className="flex flex-col max-h-80  overflow-y-auto flex-shrink-0 gap-4">
             {cartItems.map((item) => (
               <ProductCard
                 key={item.id}
