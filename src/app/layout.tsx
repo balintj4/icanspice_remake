@@ -2,13 +2,6 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono, Raleway, Inter } from "next/font/google";
 import "./globals.css";
 import { cn } from "@/lib/utils";
-import Header from "@/components/ui/header";
-import { createClient } from "@/lib/server";
-import { cookies, headers } from "next/headers";
-import { getCartItems } from "@/managers/getCartItems";
-import { getOrCreateCart } from "@/lib/cart";
-import { CartProvider } from "@/context/cartContext";
-import CategoryHeader from "@/components/ui/categoryHeader";
 
 const raleway = Raleway({ subsets: ["latin"], variable: "--font-sans" });
 
@@ -37,23 +30,6 @@ export default async function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const supabase = await createClient();
-  const cookieStore = await cookies();
-  const headersList = await headers();
-
-  const [categoriesRes, cartItemsRes] = await Promise.all([
-    supabase.from("categories").select("*"),
-
-    getCartItems(),
-  ]);
-
-  const cartId = cookieStore.get("cart_id")?.value ?? "";
-  if (cartId) {
-    await getOrCreateCart(cartId);
-  }
-  const currentPath = headersList.get("referer")
-    ? new URL(headersList.get("referer")!).pathname
-    : "/";
 
   return (
     <html
@@ -69,18 +45,9 @@ export default async function RootLayout({
       )}
     >
       <body className="min-h-full flex justify-center">
-        <CartProvider cartId={cartId}>
           <div className="w-full max-w-[1920px]  flex shadow-2xl flex-col">
-            <Header
-              categories={categoriesRes.data || []}
-              cartItems={cartItemsRes}
-              currentPath={currentPath}
-              cartId={cartId}
-            />
-            <CategoryHeader />
             <main>{children}</main>
           </div>
-        </CartProvider>
       </body>
     </html>
   );
