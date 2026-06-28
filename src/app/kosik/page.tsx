@@ -15,6 +15,7 @@ import {
 } from "@/components/ui/field"
 import { CountrySelect } from "@/components/ui/countrySelect";
 import { Checkbox } from "@/components/ui/checkbox";
+import { AddressForm } from "@/components/ui/addressForm";
 
 interface CartPageProps {
   user: string;
@@ -66,43 +67,7 @@ export default async function CartPage({user, adress}: CartPageProps) {
           {/***************************************************************
                             FORM FOR ADRESS INPUT
          *****************************************************************/}
-          <p className="text-sm font-bold mb-1">Meno a prizvisko:</p>
-          <Input className="w-200 mb-4" placeholder="Meno a priezvisko" required={true} type="text" name="Meno a prizvisko" autoComplete="given-name"/>
-           <div className="flex flex-row gap-4 w-full">
-          <span className="basis-1/2">
-          <p className="text-sm font-bold mb-1">Adresa:</p>
-          <Input className="w-full mb-4" placeholder="Ulica a číslo domu" required={true} type="text" name="Meno a prizvisko" autoComplete="street-address"/>
-          </span>
-          <span className="basis-1/2">
-          <p className="text-sm font-bold mb-1">Mesto:</p>
-          <Input className="w-full mb-4" placeholder="Mesto" required={true} type="text" name="Meno a prizvisko" autoComplete="address-level2"/>
-          </span>
-          </div>
-          
-          <div className="flex flex-row gap-4 w-full mb-6">
-          <span className="basis-1/2">
-          <p className="text-sm font-bold mb-1">PSČ:</p>
-          <Input className="w-full mb-4" placeholder="PSČ" required={true} type="text" name="Meno a prizvisko" autoComplete="postal-code"/>
-          
-          </span>
-          <span className="basis-1/2">
-          <p className="text-sm font-bold mb-1">Krajina:</p>
-          <CountrySelect />
-          </span>
-          
-          </div>
-
-          <div className="flex flex-row gap-4 w-full">
-          <span className="basis-1/2">
-          <p className="text-sm font-bold mb-1">E-mail:</p>
-          <Input className="w-full mb-4" placeholder="E-mail" required={true} type="text" name="Meno a prizvisko" autoComplete="email"/>
-          </span>
-          <span className="basis-1/2">
-          <p className="text-sm font-bold mb-1">Tel. č.:</p>
-          <Input className="w-full mb-6" placeholder="+421 ..." required={true} type="text" name="Meno a prizvisko" autoComplete="tel"/>
-          </span>
-          </div>
-
+         <AddressForm formId='shipping'/>
           <Field orientation="horizontal">
         <Checkbox
           id="terms-checkbox"

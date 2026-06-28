@@ -1,7 +1,11 @@
 import { getNames, getCode } from 'country-list';
 import { Select, SelectTrigger, SelectValue, SelectContent, SelectItem} from './select'
 
-export function CountrySelect() {
+interface CountrySelectProps {
+  id?: string;
+}
+
+export function CountrySelect({id} : CountrySelectProps) {
   const allCountries = getNames(); 
 
   const sortedCountries = [
@@ -12,7 +16,7 @@ export function CountrySelect() {
 
   return (
     <Select defaultValue="SK">
-  <SelectTrigger>
+  <SelectTrigger id={id}>
     <SelectValue placeholder="Vyberte krajinu"/>
   </SelectTrigger>
   <SelectContent>
