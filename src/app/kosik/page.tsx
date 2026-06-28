@@ -133,7 +133,7 @@ export default async function CartPage({user, adress}: CartPageProps) {
           name="terms-checkbox"
           form='address'
           required
-          defaultChecked
+          defaultChecked={false}
         />
         <FieldContent>
           <FieldLabel>

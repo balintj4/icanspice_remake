@@ -30,9 +30,12 @@ export async function processOrderAction(formData: FormData) {
     email: formData.get('email-shipping'),
     phone: formData.get('phone-shipping'),
   };
-  console.log(billingData);
-  console.log(shippingData);
-  console.log(companyData);
+  
+  const terms = formData.get('terms-checkbox');
+  
+  if (terms !== 'on') {
+    throw Error("Súhlas s podmienkami je povinný!");
+  }
 
 
   const cookieStore = await cookies();
