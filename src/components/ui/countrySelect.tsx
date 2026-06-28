@@ -6,14 +6,14 @@ export function CountrySelect() {
 
   const sortedCountries = [
     'Slovakia', 
-    'Czech Republic', 
-    ...allCountries.filter(c => c !== 'Slovakia' && c !== 'Czech Republic')
+    'Czechia', 
+    ...allCountries.filter(c => c !== 'Slovakia' && c !== 'Czechia')
   ];
 
   return (
-    <Select>
+    <Select defaultValue="SK">
   <SelectTrigger>
-    <SelectValue placeholder="Vyberte krajinu" />
+    <SelectValue placeholder="Vyberte krajinu"/>
   </SelectTrigger>
   <SelectContent>
     {sortedCountries.map((name) => (
