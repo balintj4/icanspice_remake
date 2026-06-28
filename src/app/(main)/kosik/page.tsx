@@ -6,7 +6,6 @@ import { getCartItems } from "@/managers/getCartItems";
 import ProductCard from "@/components/ui/productCard";
 import { getCartTotalValue } from "@/managers/getCartTotal";
 import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
 import {
   Field,
   FieldContent,

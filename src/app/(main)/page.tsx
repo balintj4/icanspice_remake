@@ -67,7 +67,7 @@ export default async function Page() {
                             FEATURES SECTION
     
     **************************************************************** */}
-      <div className="relative shadow-2xl z-20 flex flex-row justify-around bg-background w-[90vw] max-w-[1200px] mx-auto min-h-[16dvh] -mt-[3dvh] xl:-mt-[10dvh] rounded-md px-10 py-8">
+      <div className="relative shadow-2xl z-20 flex flex-row justify-around bg-background w-[90vw] max-w-[1200px] mx-auto min-h-[16dvh] -mt-[3dvh] 2xl:-mt-[10dvh] rounded-md px-10 py-8">
         <FeatureIcon
           icon={TruckIcon}
           label="Rýchla a spoľahlivá doprava"
