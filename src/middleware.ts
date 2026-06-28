@@ -25,7 +25,6 @@ export async function middleware(request: NextRequest) {
 
   await supabase.auth.getClaims();
 
-  // 2. Košík Management (Nezávislý od prihlásenia)
   if (!request.cookies.has("cart_id")) {
     const newCartId = uuidv4();
     console.log(newCartId);
@@ -35,6 +34,30 @@ export async function middleware(request: NextRequest) {
       httpOnly: false,
     });
   }
+
+  const { data: { user } } = await supabase.auth.getUser();
+
+  const url = request.nextUrl.clone();
+  const path = url.pathname;
+
+  if (user && (path === '/login' || path === '/register')) {
+    return NextResponse.redirect(new URL('/profil', request.url));
+  }
+
+  if (!user && (path.startsWith('/objednavky') || path === '/profil')) {
+    return NextResponse.redirect(new URL('/login', request.url));
+  }
+
+  const checkoutAuthorized = request.cookies.get('checkout_authorized')?.value;
+
+
+if (path === '/platba') {
+ 
+  if (checkoutAuthorized !== 'true') {
+    return NextResponse.redirect(new URL('/kosik', request.url));
+  }
+}
+
 
   return supabaseResponse;
 }

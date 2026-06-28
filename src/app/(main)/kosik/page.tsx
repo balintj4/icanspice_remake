@@ -16,7 +16,7 @@ import {
 import { CountrySelect } from "@/components/ui/countrySelect";
 import { Checkbox } from "@/components/ui/checkbox";
 import { AddressForm } from "@/components/clients/addressForm";
-import { processOrderAction } from "../actions/checkout";
+import { processOrderAction } from "../../actions/checkout";
 
 interface CartPageProps {
   user: string;
