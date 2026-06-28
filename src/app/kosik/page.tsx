@@ -7,8 +7,21 @@ import ProductCard from "@/components/ui/productCard";
 import { getCartTotalValue } from "@/managers/getCartTotal";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+import {
+  Field,
+  FieldContent,
+  FieldDescription,
+  FieldLabel,
+} from "@/components/ui/field"
+import { CountrySelect } from "@/components/ui/countrySelect";
+import { Checkbox } from "@/components/ui/checkbox";
 
-export default async function CartPage() {
+interface CartPageProps {
+  user: string;
+  adress: string;
+}
+
+export default async function CartPage({user, adress}: CartPageProps) {
   const supabase = await createClient();
   const cookieStore = await cookies();
   const cartId = cookieStore.get("cart_id")?.value;
@@ -34,12 +47,78 @@ export default async function CartPage() {
     *****************************************************************/}
 
         <div className="flex flex-col basis-2/3 pl-20 mx-8 px-8 py-2">
-          <p className="">Pre pohodlné objednávanie sa </p>
+        {!user ?
+          (<a href='/login'className="mb-1"><span className="text-primary underline cursor-pointer hover:text-chart-5">Prihlásenie / Registrácia</span><span className="text-muted-foreground"> pre jednoduchšie objednávanie.</span></a>)
+          :
+          (<p className="mb-1"><span className="text-primary">{`Ahoj ${user}`}</span><span className="text-muted-foreground">, tvoju adresu sme za teba doplnili automaticky.</span></p>)  
+          }
+          {!user ?
+          (<p className="text-muted-foreground mb-2">Ďakujeme, že od nás objednávate!</p>)
+          :
+          (<p className="text-muted-foreground mb-2">Ďakujeme, že od nás objednávaš!</p>)
+          }
+          
           <Separator
             orientation="horizontal"
-            className="bg-secondary mb-12 w-full mx-auto min-h-[2px]"
+            className="bg-secondary mb-6 w-full mx-auto min-h-[2px]"
           />
-          <Input className="w-200" />
+          <h2 className="mb-6 text-2xl">Dodacie údaje</h2>
+          {/***************************************************************
+                            FORM FOR ADRESS INPUT
+         *****************************************************************/}
+          <p className="text-sm font-bold mb-1">Meno a prizvisko:</p>
+          <Input className="w-200 mb-4" placeholder="Meno a priezvisko" required={true} type="text" name="Meno a prizvisko"/>
+           <div className="flex flex-row gap-4 w-full">
+          <span className="basis-1/2">
+          <p className="text-sm font-bold mb-1">Adresa:</p>
+          <Input className="w-full mb-4" placeholder="Ulica a číslo domu" required={true} type="text" name="Meno a prizvisko"/>
+          </span>
+          <span className="basis-1/2">
+          <p className="text-sm font-bold mb-1">Mesto:</p>
+          <Input className="w-full mb-4" placeholder="Adresa" required={true} type="text" name="Meno a prizvisko"/>
+          </span>
+          </div>
+          
+          <div className="flex flex-row gap-4 w-full mb-6">
+          <span className="basis-1/2">
+          <p className="text-sm font-bold mb-1">PSČ:</p>
+          <Input className="w-full mb-4" placeholder="PSČ" required={true} type="text" name="Meno a prizvisko"/>
+          
+          </span>
+          <span className="basis-1/2">
+          <p className="text-sm font-bold mb-1">Krajina:</p>
+          <CountrySelect />
+          </span>
+          
+          </div>
+
+          <div className="flex flex-row gap-4 w-full">
+          <span className="basis-1/2">
+          <p className="text-sm font-bold mb-1">E-mail:</p>
+          <Input className="w-full mb-4" placeholder="E-mail" required={true} type="text" name="Meno a prizvisko"/>
+          </span>
+          <span className="basis-1/2">
+          <p className="text-sm font-bold mb-1">Tel. č.:</p>
+          <Input className="w-full mb-6" placeholder="+421 ..." required={true} type="text" name="Meno a prizvisko"/>
+          </span>
+          </div>
+
+          <Field orientation="horizontal">
+        <Checkbox
+          id="terms-checkbox"
+          name="terms-checkbox"
+          defaultChecked
+        />
+        <FieldContent>
+          <FieldLabel>
+            Súhlas s obchodnými podmienkami
+          </FieldLabel>
+          <FieldDescription>
+           Zaškrtnutím vyhlasujem, že som si obchodné podmienky a podmienky spracovania osobných údajov prečítal a súhlasím s nimi v plnom rozsahu.
+          </FieldDescription>
+        </FieldContent>
+      </Field>
+          
         </div>
 
         {/***************************************************************
