@@ -15,7 +15,8 @@ import {
 } from "@/components/ui/field"
 import { CountrySelect } from "@/components/ui/countrySelect";
 import { Checkbox } from "@/components/ui/checkbox";
-import { AddressForm } from "@/components/ui/addressForm";
+import { AddressForm } from "@/components/clients/addressForm";
+import { processOrderAction } from "../actions/checkout";
 
 interface CartPageProps {
   user: string;
@@ -67,24 +68,10 @@ export default async function CartPage({user, adress}: CartPageProps) {
           {/***************************************************************
                             FORM FOR ADRESS INPUT
          *****************************************************************/}
-         <AddressForm formId='shipping'/>
-          <Field orientation="horizontal">
-        <Checkbox
-          id="terms-checkbox"
-          name="terms-checkbox"
-          defaultChecked
-        />
-        <FieldContent>
-          <FieldLabel>
-            Súhlas s obchodnými podmienkami
-          </FieldLabel>
-          <FieldDescription>
-           Zaškrtnutím vyhlasujem, že som si obchodné podmienky a podmienky spracovania osobných údajov prečítal a súhlasím s nimi v plnom rozsahu.
-          </FieldDescription>
-        </FieldContent>
-      </Field>
+         <AddressForm formId='address'/>
           
         </div>
+        <Separator orientation="vertical" className="bg-foreground" />
 
         {/***************************************************************
     
@@ -92,7 +79,7 @@ export default async function CartPage({user, adress}: CartPageProps) {
     
     *****************************************************************/}
 
-        <div className="outline outline-2 outline-foreground mx-8 p-6 px-10 flex flex-col basis-1/3 gap-4 sticky top-24">
+        <div className="mx-8 p-6 px-10 flex flex-col basis-1/3 gap-4 sticky top-24">
           <h2 className="font-bold text-lg bm-2">Produkty v košíku</h2>
           <div className="flex flex-col max-h-80  overflow-y-auto flex-shrink-0 gap-4">
             {cartItems.map((item) => (
@@ -127,12 +114,36 @@ export default async function CartPage({user, adress}: CartPageProps) {
             <h3 className="text-foreground font-bold text-md">Spolu:</h3>
             <p className="text-muted-foreground text-md">{`${cartTotal / 100} €`}</p>
           </div>
-          <Button variant="default" className="w-full py-2">
+
+          <Button 
+          variant="default" 
+          className="w-full py-2"
+          type="submit" 
+          form="address" 
+          formAction={processOrderAction}>
             Zaplatiť a objednať
           </Button>
           <Button variant="outline" className="w-full py-2 -mt-1">
             Pokračovať v nakupovaní
           </Button>
+
+          <Field orientation="horizontal">
+        <Checkbox
+          id="terms-checkbox"
+          name="terms-checkbox"
+          form='address'
+          required
+          defaultChecked
+        />
+        <FieldContent>
+          <FieldLabel>
+            Súhlas s obchodnými podmienkami
+          </FieldLabel>
+          <FieldDescription>
+           Zaškrtnutím vyhlasujem, že som si obchodné podmienky a podmienky spracovania osobných údajov prečítal a súhlasím s nimi v plnom rozsahu.
+          </FieldDescription>
+        </FieldContent>
+      </Field>
         </div>
       </div>
     </>
