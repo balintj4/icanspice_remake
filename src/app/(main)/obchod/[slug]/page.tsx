@@ -32,6 +32,7 @@ export default async function CategoryPage({
 
   return (
     <>
+      <CategoryHeader />
       {catName ? (
         <div className="ml-12 mt-6 mb-2 flex flex-row gap-2 items-center">
           <h1 className="text-3xl">Obchod:</h1>

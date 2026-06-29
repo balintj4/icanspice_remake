@@ -13,7 +13,7 @@ export default function LoginPage() {
     <div
       className="flex flex-row h-screen bg-no-repeat bg-centre bg-cover"
       style={{
-        backgroundImage: "url('/auth-bg.webp')",
+        backgroundImage: "url('/hero-bg.webp')",
       }}
     >
       {/*************************** HEADER ****************************/}

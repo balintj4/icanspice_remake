@@ -1,11 +1,9 @@
 import Header from "@/components/ui/header";
-import { createClient } from "@/lib/server";
+import { createClient, getUserSession } from "@/lib/server";
 import { cookies, headers } from "next/headers";
 import { getCartItems } from "@/managers/getCartItems";
 import { getOrCreateCart } from "@/lib/cart";
 import { CartProvider } from "@/context/cartContext";
-import CategoryHeader from "@/components/ui/categoryHeader";
-
 
 export default async function RootLayout({
   children,
@@ -30,19 +28,25 @@ export default async function RootLayout({
     ? new URL(headersList.get("referer")!).pathname
     : "/";
 
+  const user = await getUserSession();
+  const { data: userPublic } = await supabase
+    .from("users")
+    .select("name")
+    .eq("id", user?.id)
+    .single();
+
   return (
-    
-        <CartProvider cartId={cartId}>
-          <div className="w-full max-w-[1920px]  flex shadow-2xl flex-col">
-            <Header
-              categories={categoriesRes.data || []}
-              cartItems={cartItemsRes}
-              currentPath={currentPath}
-              cartId={cartId}
-            />
-            <CategoryHeader />
-{children}
-          </div>
-        </CartProvider>
+    <CartProvider cartId={cartId}>
+      <div className="w-full max-w-[1920px]  flex shadow-2xl flex-col">
+        <Header
+          categories={categoriesRes.data || []}
+          cartItems={cartItemsRes}
+          currentPath={currentPath}
+          cartId={cartId}
+          user={userPublic?.name}
+        />
+        {children}
+      </div>
+    </CartProvider>
   );
 }

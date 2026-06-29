@@ -1,15 +1,5 @@
 "use client";
 
-/**********************************************************************************
- * Chýba doimplementácia logiky konta a košíku.
- *
- * Košík: ten by mal zobrazovať dropdown 3 vecí v ňom aj s náhladovým obrázkom (to
- * znamená prepojenie rovno niekoľkých tabuliek z databázy - možno to vyžaduje prerobenie samotnej databázy)
- *
- * Konto/prihlásenie treba doplniť logiku akou sa dostáva na login screen alebo je uzivatel prihlasený
- *
- ***********************************************************************************/
-
 import Link from "next/link";
 import {
   HoverCard,
@@ -39,7 +29,7 @@ interface Category {
 interface HeaderClientProps {
   categories: Category[];
   cartTotal: number;
-  user?: { name: string } | null;
+  user?: string | null;
   cartItemsCount: number;
   children: React.ReactNode;
 }
@@ -124,10 +114,9 @@ export function HeaderClient({
           />
 
           {user ? (
-            /* Prihlásený užívateľ */
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
-                <Button variant="outline">{user.name}</Button>
+                <Button variant="outline">{user}</Button>
               </DropdownMenuTrigger>
               <DropdownMenuContent>
                 <DropdownMenuItem>Profil</DropdownMenuItem>

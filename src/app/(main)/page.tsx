@@ -32,7 +32,7 @@ export default async function Page() {
             backgroundImage: "url('/hero-bg.webp')",
           }}
         >
-          <img src={"/ics-logo.svg"} className="mb-[4dvh] w-2xs" />
+          <img src={"/ics-logo.svg"} className="mb-[4dvh] w-60" />
           <h1 className="text-background sm:text-6xl mb-[2dvh]">
             <strong className="text-8xl">Prémiová kvalita</strong>
             <br />
