@@ -11,16 +11,20 @@ export async function middleware(request: NextRequest) {
     process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY!,
     {
       cookies: {
-        getAll() { return request.cookies.getAll() },
+        getAll() {
+          return request.cookies.getAll();
+        },
         setAll(cookiesToSet) {
-          cookiesToSet.forEach(({ name, value }) => request.cookies.set(name, value));
+          cookiesToSet.forEach(({ name, value }) =>
+            request.cookies.set(name, value),
+          );
           supabaseResponse = NextResponse.next({ request });
           cookiesToSet.forEach(({ name, value, options }) =>
-            supabaseResponse.cookies.set(name, value, options)
+            supabaseResponse.cookies.set(name, value, options),
           );
         },
       },
-    }
+    },
   );
 
   await supabase.auth.getClaims();
@@ -35,29 +39,28 @@ export async function middleware(request: NextRequest) {
     });
   }
 
-  const { data: { user } } = await supabase.auth.getUser();
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
 
   const url = request.nextUrl.clone();
   const path = url.pathname;
 
-  if (user && (path === '/login' || path === '/register')) {
-    return NextResponse.redirect(new URL('/profil', request.url));
+  if (user && (path === "/login" || path === "/register")) {
+    return NextResponse.redirect(new URL("/", request.url));
   }
 
-  if (!user && (path.startsWith('/objednavky') || path === '/profil')) {
-    return NextResponse.redirect(new URL('/login', request.url));
+  if (!user && (path.startsWith("/objednavky") || path === "/profil")) {
+    return NextResponse.redirect(new URL("/login", request.url));
   }
 
-  const checkoutAuthorized = request.cookies.get('checkout_authorized')?.value;
+  const checkoutAuthorized = request.cookies.get("checkout_authorized")?.value;
 
-
-if (path === '/platba') {
- 
-  if (checkoutAuthorized !== 'true') {
-    return NextResponse.redirect(new URL('/kosik', request.url));
+  if (path === "/platba") {
+    if (checkoutAuthorized !== "true") {
+      return NextResponse.redirect(new URL("/kosik", request.url));
+    }
   }
-}
-
 
   return supabaseResponse;
 }

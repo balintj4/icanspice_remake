@@ -28,6 +28,7 @@ import { Input } from "@/components/ui/input";
 import { usePathname } from "next/navigation";
 import { cn } from "@/lib/utils";
 import { Card, CardFooter, CardTitle, CardDescription } from "../ui/card";
+import { logoutAction } from "@/app/actions/auth";
 
 interface Category {
   id: number;
@@ -110,6 +111,9 @@ export function HeaderClient({
             >
               Kontakt
             </Link>
+          </Button>
+          <Button variant="destructive" onClick={() => logoutAction()}>
+            Odhlásiť
           </Button>
         </div>
 
