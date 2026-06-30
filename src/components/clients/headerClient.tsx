@@ -44,7 +44,7 @@ import {
 } from "../ui/field";
 import { Input } from "../ui/input";
 import { processUpdateGeneral } from "@/app/actions/updateUser";
-import { GeneralSettingsDialog } from "../ui/generalSettingsPopUp";
+import { GeneralSettingsDialog } from "./generalSettingsPopUp";
 
 interface Category {
   id: number;

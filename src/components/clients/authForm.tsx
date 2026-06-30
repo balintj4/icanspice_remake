@@ -5,7 +5,8 @@ import { SiApple, SiFacebook, SiGoogle } from "react-icons/si";
 import { Separator } from "../ui/separator";
 import { Button } from "../ui/button";
 import { loginAction, registerAction } from "@/app/actions/auth";
-import { useActionState } from "react";
+import { useActionState, useState } from "react";
+import { EyeIcon, EyeOffIcon } from "lucide-react";
 
 export function AuthForm({
   formId,
@@ -19,6 +20,7 @@ export function AuthForm({
   const [state, action, isPending] = useActionState(selectedAction, {
     error: null,
   });
+  const [showPassword, setShowPassword] = useState(false);
 
   return (
     <>
@@ -51,7 +53,7 @@ export function AuthForm({
                   autoComplete="email"
                 />
               </Field>
-              <Field>
+              <Field className="relative">
                 <FieldLabel htmlFor="login-pswd">
                   Prihlasovacie heslo
                 </FieldLabel>
@@ -60,10 +62,18 @@ export function AuthForm({
                   id="login-pswd"
                   name="login-pswd"
                   form={formId}
-                  type="password"
+                  type={showPassword ? "text" : "password"}
                   placeholder="heslo"
                   autoComplete="password"
                 />
+                <Button
+                  type="button"
+                  variant={"ghost"}
+                  className="absolute max-w-8 right-3 top-3/4 -translate-y-1/2 text-gray-500 hover:text-gray-700 hover:bg-background"
+                  onClick={() => setShowPassword(!showPassword)}
+                >
+                  {showPassword ? <EyeIcon /> : <EyeOffIcon />}
+                </Button>
               </Field>
             </FieldSet>
           </FieldGroup>
@@ -114,17 +124,25 @@ export function AuthForm({
               </Field>
             </FieldSet>
             <FieldSet>
-              <Field>
+              <Field className="relative">
                 <FieldLabel htmlFor="reg-pswd">Prihlasovacie heslo</FieldLabel>
                 <Input
                   required
                   id="reg-pswd"
                   name="reg-pswd"
                   form={formId}
-                  type="password"
+                  type={showPassword ? "text" : "password"}
                   placeholder="Heslo"
                   autoComplete="password"
                 />
+                <Button
+                  type="button"
+                  variant={"ghost"}
+                  className="absolute max-w-8 right-3 top-3/4 -translate-y-1/2 text-gray-500 hover:text-gray-700 hover:bg-background"
+                  onClick={() => setShowPassword(!showPassword)}
+                >
+                  {showPassword ? <EyeIcon /> : <EyeOffIcon />}
+                </Button>
               </Field>
             </FieldSet>
           </FieldGroup>

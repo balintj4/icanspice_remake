@@ -2,6 +2,7 @@
 
 import { createAdminClient } from "@/lib/admin";
 import { refresh, revalidatePath } from "next/cache";
+import { redirect } from "next/navigation";
 
 export async function processUpdateGeneral(prevState: any, formData: FormData) {
   const supabase = await createAdminClient();
@@ -61,6 +62,28 @@ export async function processUpdateGeneral(prevState: any, formData: FormData) {
     if (pswdError) return { error: pswdError.message };
   }
 
+  const { error: update } = await supabase
+    .from("users")
+    .update({ updated_at: "now()" })
+    .eq("id", user.id);
+
   refresh();
   return { error: null };
+}
+
+export async function deleteAccountAction() {
+  const supabase = await createAdminClient();
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
+
+  if (!user) return { error: "Neprihlásený" };
+
+  const { error } = await supabase.auth.admin.deleteUser(user.id);
+
+  if (error) return { error: error.message };
+
+  await supabase.auth.signOut();
+
+  redirect("/");
 }

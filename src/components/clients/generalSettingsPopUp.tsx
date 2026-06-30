@@ -1,3 +1,4 @@
+"use client";
 import {
   Dialog,
   DialogContent,
@@ -7,7 +8,7 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
-import { ChevronRightIcon } from "lucide-react";
+import { ChevronRightIcon, EyeIcon, EyeOffIcon } from "lucide-react";
 import {
   Field,
   FieldDescription,
@@ -15,11 +16,10 @@ import {
   FieldLabel,
   FieldSeparator,
   FieldTitle,
-} from "./field";
-import { Input } from "./input";
+} from "../ui/field";
+import { Input } from "../ui/input";
 import { useActionState, useEffect, useState } from "react";
 import { processUpdateGeneral } from "@/app/actions/updateUser";
-// Importuj sem tvoj formulár a akcie
 
 export function GeneralSettingsDialog({
   user,
@@ -33,6 +33,8 @@ export function GeneralSettingsDialog({
   const [state, action, isPending] = useActionState(processUpdateGeneral, {
     error: null,
   });
+  const [showCurrentPassword, setShowCurrentPassword] = useState(false);
+  const [showNewPassword, setShowNewPassword] = useState(false);
 
   useEffect(() => {
     if (!isPending && state?.error === null) {
@@ -42,12 +44,6 @@ export function GeneralSettingsDialog({
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      {/* <DialogTrigger asChild>
-        <Button variant={"ghost"} className="text-left justify-start">
-          Všeobecné <ChevronRightIcon />
-        </Button>
-      </DialogTrigger> */}
-
       <DialogContent className="sm:max-w-[40vw]">
         <DialogHeader>
           <DialogTitle>Nastavenia účtu</DialogTitle>
@@ -113,18 +109,25 @@ export function GeneralSettingsDialog({
                   />
                 </Field>
               </div>
-              <Field>
+              <Field className="relative">
                 <FieldLabel htmlFor="general-settings-newPswd">
                   Zmena hesla:
                 </FieldLabel>
                 <Input
                   id="general-settings-newPswd"
                   name="general-settings-newPswd"
-                  autoComplete="tel"
                   defaultValue={user.phone}
                   placeholder="Nové heslo"
-                  type="password"
+                  type={showNewPassword ? "text" : "password"}
                 />
+                <Button
+                  type="button"
+                  variant={"ghost"}
+                  className="absolute max-w-8 right-3 top-3/4 -translate-y-1/2 text-gray-500 hover:text-gray-700 hover:bg-background"
+                  onClick={() => setShowNewPassword(!showNewPassword)}
+                >
+                  {showNewPassword ? <EyeIcon /> : <EyeOffIcon />}
+                </Button>
               </Field>
             </FieldGroup>
             <FieldSeparator className="my-4" />
@@ -135,14 +138,22 @@ export function GeneralSettingsDialog({
               Pre potvrdenie zmien je nutné zadať aktuálne heslo.
             </FieldDescription>
             <FieldGroup>
-              <Field>
+              <Field className="relative">
                 <Input
                   id="general-settings-pswd"
                   name="general-settings-pswd"
                   placeholder="Heslo pre potvrdenie"
-                  type="password"
+                  type={showCurrentPassword ? "text" : "password"}
                   required
                 />
+                <Button
+                  type="button"
+                  variant={"ghost"}
+                  className="absolute max-w-8 right-3 top-1/2 -translate-y-1/2 text-gray-500 hover:text-gray-700 hover:bg-background"
+                  onClick={() => setShowCurrentPassword(!showCurrentPassword)}
+                >
+                  {showCurrentPassword ? <EyeIcon /> : <EyeOffIcon />}
+                </Button>
               </Field>
             </FieldGroup>
             {state?.error && (
