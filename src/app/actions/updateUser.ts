@@ -41,6 +41,8 @@ export async function processUpdateGeneral(prevState: any, formData: FormData) {
 
   const newPswd = formData.get("general-settings-newPswd") as string;
   const currentPassword = formData.get("general-settings-pswd") as string;
+  console.log(newPswd);
+  console.log(currentPassword);
 
   const { error: verifyError } = await supabase.auth.signInWithPassword({
     email: user.email!,

@@ -63,7 +63,6 @@ export function GeneralSettingsDialog({
                     Krsné meno:
                   </FieldLabel>
                   <Input
-                    form="general-settings"
                     id="general-settings-name"
                     name="general-settings-name"
                     autoComplete="given-name"
@@ -77,7 +76,6 @@ export function GeneralSettingsDialog({
                     Priezvisko:
                   </FieldLabel>
                   <Input
-                    form="general-settings"
                     id="general-settings-surname"
                     name="general-settings-surname"
                     autoComplete="given-surname"
@@ -93,7 +91,6 @@ export function GeneralSettingsDialog({
                     E-mail:
                   </FieldLabel>
                   <Input
-                    form="general-settings"
                     id="general-settings-email"
                     name="general-settings-email"
                     autoComplete="email"
@@ -107,7 +104,6 @@ export function GeneralSettingsDialog({
                     Telefónne číslo:
                   </FieldLabel>
                   <Input
-                    form="general-settings"
                     id="general-settings-tel"
                     name="general-settings-tel"
                     autoComplete="tel"
@@ -122,7 +118,6 @@ export function GeneralSettingsDialog({
                   Zmena hesla:
                 </FieldLabel>
                 <Input
-                  form="general-settings"
                   id="general-settings-newPswd"
                   name="general-settings-newPswd"
                   autoComplete="tel"
@@ -142,7 +137,6 @@ export function GeneralSettingsDialog({
             <FieldGroup>
               <Field>
                 <Input
-                  form="general-settings"
                   id="general-settings-pswd"
                   name="general-settings-pswd"
                   placeholder="Heslo pre potvrdenie"
