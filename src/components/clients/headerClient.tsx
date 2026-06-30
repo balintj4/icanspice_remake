@@ -19,6 +19,7 @@ import { usePathname } from "next/navigation";
 import { cn } from "@/lib/utils";
 import { Card, CardFooter, CardTitle, CardDescription } from "../ui/card";
 import { logoutAction } from "@/app/actions/auth";
+import { ChevronLeftIcon, ChevronRightIcon } from "lucide-react";
 
 interface Category {
   id: number;
@@ -151,13 +152,70 @@ export function HeaderClient({
                         {cartTotal / 100} €
                       </CardDescription>
                     </div>
-                    <Button className="mx-auto w-65">Prejsť do košíka</Button>
+                    <Button
+                      className="mx-auto w-65 items-center"
+                      variant={"default"}
+                    >
+                      <Link href={"/kosik"}>
+                        Prejsť do košíka
+                        <ChevronRightIcon className="inline ml-2" />
+                      </Link>
+                    </Button>
                   </CardFooter>
                 </Card>
               </HoverCardContent>
             </HoverCard>
           ) : (
-            <Button variant="default">Košík</Button>
+            <HoverCard openDelay={0} closeDelay={100}>
+              <HoverCardTrigger>
+                <Button variant="default">Košík</Button>
+              </HoverCardTrigger>
+              <HoverCardContent
+                className="min-w-80"
+                collisionPadding={20}
+                sideOffset={10}
+              >
+                <Card className="w-full">
+                  <div className="flex flex-col gap-2 py-2 mx-auto max-h-70 overflow-y-auto flex-shrink-0">
+                    {user ? (
+                      <CardDescription className="my-6 text-center">
+                        {user}, tvoj košík je prázdny, <br />
+                        <span className="text-chart-5">tlačítko nižšie</span> ťa
+                        prevediev na náš výber!
+                      </CardDescription>
+                    ) : (
+                      <CardDescription className="my-6 text-center">
+                        Váš košík je prázdny, <br />
+                        <span className="text-chart-5">
+                          tlačítko nižšie
+                        </span>{" "}
+                        Vás prevediev na náš výber!
+                      </CardDescription>
+                    )}
+                  </div>
+                  <CardFooter className="flex flex-col gap-2 p-2">
+                    <Button
+                      className=" mx-auto w-65 mt-2 items-center"
+                      variant={"default"}
+                    >
+                      <Link href={"/obchod"}>
+                        <ChevronLeftIcon className="inline mr-2" />
+                        Do obchodu
+                      </Link>
+                    </Button>
+                    <Button
+                      className="mx-auto w-65 items-center"
+                      variant={"secondary"}
+                    >
+                      <Link href={"/kosik"}>
+                        Prejsť do košíka
+                        <ChevronRightIcon className="inline ml-2" />
+                      </Link>
+                    </Button>
+                  </CardFooter>
+                </Card>
+              </HoverCardContent>
+            </HoverCard>
           )}
         </div>
       </header>
