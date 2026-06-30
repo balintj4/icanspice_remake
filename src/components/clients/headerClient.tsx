@@ -6,7 +6,7 @@ import {
   HoverCardContent,
   HoverCardTrigger,
 } from "@/components/ui/hover-card";
-import React from "react";
+import React, { use, useActionState, useEffect, useState } from "react";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -34,6 +34,17 @@ import {
   UserIcon,
 } from "lucide-react";
 import { Separator } from "@/components/ui/separator";
+import {
+  Field,
+  FieldDescription,
+  FieldGroup,
+  FieldLabel,
+  FieldSeparator,
+  FieldTitle,
+} from "../ui/field";
+import { Input } from "../ui/input";
+import { processUpdateGeneral } from "@/app/actions/updateUser";
+import { GeneralSettingsDialog } from "../ui/generalSettingsPopUp";
 
 interface Category {
   id: number;
@@ -41,10 +52,26 @@ interface Category {
   hidden: boolean;
 }
 
+interface User {
+  id: string;
+  name: string;
+  surname: string;
+  email: string;
+  phone: string;
+  address: string;
+  city: string;
+  postal_code: string;
+  country: string;
+  company: string;
+  company_id: string;
+  company_vat_id: string;
+  comapny_dph_id: string;
+}
+
 interface HeaderClientProps {
   categories: Category[];
   cartTotal: number;
-  user?: string | null;
+  user?: User;
   cartItemsCount: number;
   children: React.ReactNode;
 }
@@ -58,6 +85,8 @@ export function HeaderClient({
 }: HeaderClientProps) {
   const pathname = usePathname();
   const isActive = (path: string) => pathname === path;
+  const [isGeneralOpen, setIsGeneralOpen] = useState(false);
+  const [isAddressOpen, setIsAdressOpen] = useState(false);
 
   return (
     <>
@@ -138,7 +167,7 @@ export function HeaderClient({
               <HoverCard openDelay={0} closeDelay={100}>
                 <HoverCardTrigger>
                   <Button variant="ghost">
-                    <UserIcon /> {user}
+                    <UserIcon /> {user.name}
                   </Button>
                 </HoverCardTrigger>
                 <HoverCardContent
@@ -148,9 +177,15 @@ export function HeaderClient({
                 >
                   <h3>Nastavenia účtu</h3>
                   <Separator />
-                  <Button variant={"ghost"} className="text-left justify-start">
+
+                  <Button
+                    variant="ghost"
+                    className="text-left justify-start"
+                    onClick={() => setIsGeneralOpen(true)}
+                  >
                     Všeobecné <ChevronRightIcon />
                   </Button>
+
                   <Button variant={"ghost"} className="text-left justify-start">
                     Adresa <ChevronRightIcon />
                   </Button>
@@ -175,6 +210,12 @@ export function HeaderClient({
               </Link>
             </Button>
           )}
+
+          <GeneralSettingsDialog
+            user={user}
+            open={isGeneralOpen}
+            onOpenChange={setIsGeneralOpen}
+          />
 
           {/***************************************************************
     
@@ -230,7 +271,7 @@ export function HeaderClient({
                   <div className="flex flex-col gap-2 py-2 mx-auto max-h-70 overflow-y-auto flex-shrink-0">
                     {user ? (
                       <CardDescription className="my-6 text-center">
-                        {user}, tvoj košík je prázdny, <br />
+                        {user.name}, tvoj košík je prázdny, <br />
                         <span className="text-chart-5">tlačítko nižšie</span> ťa
                         prevediev na náš výber!
                       </CardDescription>

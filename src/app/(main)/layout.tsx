@@ -28,13 +28,6 @@ export default async function RootLayout({
     ? new URL(headersList.get("referer")!).pathname
     : "/";
 
-  const user = await getUserSession();
-  const { data: userPublic } = await supabase
-    .from("users")
-    .select("name")
-    .eq("id", user?.id)
-    .single();
-
   return (
     <CartProvider cartId={cartId}>
       <div className="w-full max-w-[1920px]  flex shadow-2xl flex-col">
@@ -43,7 +36,6 @@ export default async function RootLayout({
           cartItems={cartItemsRes}
           currentPath={currentPath}
           cartId={cartId}
-          user={userPublic?.name}
         />
         {children}
       </div>

@@ -1,3 +1,4 @@
+import { getUserData } from "@/managers/getUserData";
 import { HeaderClient } from "../clients/headerClient";
 import ProductCard from "./productCard";
 import { getCartTotalValue } from "@/managers/getCartTotal";
@@ -19,7 +20,6 @@ interface HeaderProps {
   cartItems: CartItem[];
   currentPath: string;
   cartId: string;
-  user?: string;
 }
 
 export default async function Header({
@@ -27,9 +27,9 @@ export default async function Header({
   cartItems,
   currentPath,
   cartId,
-  user,
 }: HeaderProps) {
   const total = cartId ? await getCartTotalValue(cartId) : 0;
+  const user = await getUserData();
 
   return (
     <HeaderClient
