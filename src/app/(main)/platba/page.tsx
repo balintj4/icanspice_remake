@@ -15,24 +15,22 @@ import {
 import { Checkbox } from "@/components/ui/checkbox";
 import { AddressForm } from "@/components/clients/addressForm";
 import { processOrderAction } from "../../actions/checkout";
-import { getUserData } from "@/managers/getUserData";
 
-export default async function CartPage() {
+export default async function PaymentPage() {
   const supabase = await createClient();
   const cookieStore = await cookies();
   const cartId = cookieStore.get("cart_id")?.value;
   const cartItems = await getCartItems();
-  const user = await getUserData();
   const cartTotal = cartId ? await getCartTotalValue(cartId) : 0;
 
   return (
     <>
       <div className="flex flex-row gap-2 mt-8 mb-4 text-2xl w-full text-muted-foreground items-center justify-center">
-        <h1 className="font-bold text-foreground">Košík</h1>
+        <h1 className="">Košík</h1>
         <ChevronRightIcon className="h-10" />
-        <h1 className="font">Platba</h1>
+        <h1 className="font-bold text-foreground">Platba</h1>
         <ChevronRightIcon className="h-10" />
-        <h1 className="font">Objednávka</h1>
+        <h1 className="">Objednávka</h1>
       </div>
 
       <div className="flex flex-row">
@@ -43,56 +41,12 @@ export default async function CartPage() {
     *****************************************************************/}
 
         <div className="flex flex-col basis-2/3 pl-20 mx-8 px-8 py-2">
-          {!user ? (
-            <>
-              <a href="/login" className="mb-1">
-                <span className="text-primary underline cursor-pointer hover:text-chart-5">
-                  Prihlásenie / Registrácia
-                </span>
-                <span className="text-muted-foreground">
-                  {" "}
-                  pre jednoduchšie objednávanie.
-                </span>
-              </a>
-              <p className="text-muted-foreground mb-2">
-                Ďakujeme, že od nás objednávate!
-              </p>
-            </>
-          ) : user && user.address ? (
-            <>
-              <p className="mb-1">
-                <span className="text-primary">{`Ahoj ${user.name}`}</span>
-                <span className="text-muted-foreground">
-                  , tvoju adresu sme za teba doplnili automaticky.
-                </span>
-              </p>
-              <p className="text-muted-foreground mb-2">
-                Ďakujeme, že od nás objednávaš!
-              </p>
-            </>
-          ) : (
-            <>
-              <p className="mb-1">
-                <span className="text-primary">{`Ahoj ${user.name}`}</span>
-                <span className="text-muted-foreground">
-                  , v nastaveniach si ulož adresu pre jednoduchšie objednávanie.
-                </span>
-              </p>
-              <p className="text-muted-foreground mb-2">
-                Ďakujeme, že od nás objednávaš!
-              </p>
-            </>
-          )}
-
           <Separator
             orientation="horizontal"
             className="bg-secondary mb-6 w-full mx-auto min-h-[2px]"
           />
           <h2 className="mb-6 text-2xl">Dodacie údaje</h2>
-          {/***************************************************************
-                            FORM FOR ADRESS INPUT
-         *****************************************************************/}
-          <AddressForm formId="address" />
+          <h2 className="mb-6 text-2xl">Fakturačné údaje</h2>
         </div>
         <Separator orientation="vertical" className="bg-foreground" />
 

@@ -13,13 +13,27 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
 import { usePathname } from "next/navigation";
 import { cn } from "@/lib/utils";
 import { Card, CardFooter, CardTitle, CardDescription } from "../ui/card";
 import { logoutAction } from "@/app/actions/auth";
-import { ChevronLeftIcon, ChevronRightIcon } from "lucide-react";
+import {
+  ChevronLeftIcon,
+  ChevronRightIcon,
+  LogOutIcon,
+  MenuIcon,
+  UserIcon,
+} from "lucide-react";
+import { Separator } from "@/components/ui/separator";
 
 interface Category {
   id: number;
@@ -56,6 +70,13 @@ export function HeaderClient({
           >
             I CAN SPICE
           </h1>
+
+          {/***************************************************************
+    
+                                    MENU
+    
+           *****************************************************************/}
+
           <Button variant="ghost" asChild>
             <Link
               href="/"
@@ -103,33 +124,63 @@ export function HeaderClient({
               Kontakt
             </Link>
           </Button>
-          <Button variant="destructive" onClick={() => logoutAction()}>
-            Odhlásiť
-          </Button>
         </div>
 
         <div className="flex items-center gap-4">
-          <Input
-            placeholder="Hľadať..."
-            className="w-64 lg:visible invisible"
-          />
+          {/***************************************************************
+    
+                                    USER
+    
+           *****************************************************************/}
 
           {user ? (
-            <DropdownMenu>
-              <DropdownMenuTrigger asChild>
-                <Button variant="outline">{user}</Button>
-              </DropdownMenuTrigger>
-              <DropdownMenuContent>
-                <DropdownMenuItem>Profil</DropdownMenuItem>
-                <DropdownMenuItem>Odhlásiť</DropdownMenuItem>
-              </DropdownMenuContent>
-            </DropdownMenu>
+            <>
+              <HoverCard openDelay={0} closeDelay={100}>
+                <HoverCardTrigger>
+                  <Button variant="ghost">
+                    <UserIcon /> {user}
+                  </Button>
+                </HoverCardTrigger>
+                <HoverCardContent
+                  className="w-40 flex flex-col gap-2 justify-center"
+                  collisionPadding={20}
+                  sideOffset={10}
+                >
+                  <h3>Nastavenia účtu</h3>
+                  <Separator />
+                  <Button variant={"ghost"} className="text-left justify-start">
+                    Všeobecné <ChevronRightIcon />
+                  </Button>
+                  <Button variant={"ghost"} className="text-left justify-start">
+                    Adresa <ChevronRightIcon />
+                  </Button>
+                  <Button variant={"ghost"} className="text-left justify-start">
+                    Objednávky <ChevronRightIcon />
+                  </Button>
+                  <Button
+                    variant={"destructive"}
+                    onClick={() => logoutAction()}
+                  >
+                    <LogOutIcon />
+                    Odhlásiť sa
+                  </Button>
+                </HoverCardContent>
+              </HoverCard>
+            </>
           ) : (
             /* Neprihlásený užívateľ */
             <Button variant="secondary" asChild>
-              <Link href="/login">Prihlásenie</Link>
+              <Link href="/login">
+                <UserIcon /> Prihlásenie
+              </Link>
             </Button>
           )}
+
+          {/***************************************************************
+    
+                                    CART
+    
+           *****************************************************************/}
 
           {cartItemsCount ? (
             <HoverCard openDelay={0} closeDelay={100}>
